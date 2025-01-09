@@ -117,14 +117,14 @@ const val RABBIT = """Switching on the camera in the rabbit habitat...
 It looks like we will soon have more rabbits!"""
 
 fun getAnimal(index: Int): String{
-    val listOfAnimals = listOf("$CAMEL", "$LION", "$DEAR", "$GOOSE", "$BAT", "$RABBIT")
+    val listOfAnimals = listOf(CAMEL, LION, DEAR, GOOSE, BAT, RABBIT)
     return listOfAnimals.getOrElse(index){"Animal isn't found!"}
 }
 
 fun main(){
     print("Enter the index of the animal you want to view from the zoo: ")
     val input = readln()
-    val index = input?.toIntOrNull()
+    val index = input.toIntOrNull()
     if (index != null && index >= 0){
         val animal = getAnimal(index)
         println(animal)
