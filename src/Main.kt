@@ -116,36 +116,55 @@ const val RABBIT = """Switching on the camera in the rabbit habitat...
 (" ~----( ~   Y.  )
 It looks like we will soon have more rabbits!"""
 
-fun getAnimal(index: Any): String{
-    val listOfAnimals = listOf(CAMEL, LION, DEAR, GOOSE, BAT, RABBIT)
-    return listOfAnimals.getOrElse(index as Int){"Animal isn't found!"}
+const val ELEPHANT = """Switching on the camera in the elephant habitat...
+     __     ______  _
+  _ /  \   |  ____|/ |
+ | |/ _  |  | |__  | |
+ | | |_| |  |  __| | |
+ | |__|_|   | |___ |_|
+  \______|  |_____||_|
+The elephant looks calm, flapping its big ears!"""
+
+const val ZEBRA = """Switching on the camera in the zebra habitat...
+       /|  __/|_    
+     (_/\|   ||      /\     
+  __/  /\_/|  ||    /_/__
+ /_/  o o ||__/|    |o o|__
+|  |      ||  ||____/     _|
+ \_|   o_ ||_/_|_   o    /
+    ||  _/       \_ __  /
+The zebra's stripes are mesmerizing, aren't they?"""
+
+const val PANDA = """Switching on the camera in the panda habitat...
+(\_ _/)
+(='.'=)
+(")_(")
+The panda is chewing on some bamboo shoots. Adorable!"""
+
+fun getAnimal(index: Any): String {
+    val listOfAnimals = listOf(CAMEL, LION, DEAR, GOOSE, BAT, RABBIT, ELEPHANT, ZEBRA, PANDA)
+    return listOfAnimals.getOrElse(index as Int) { "Animal isn't found!" }
 }
 
-fun main(){
+fun main() {
     while (true) {
-        print("Enter the index of your favorite animal: ")
-        val input = readLine()?.toString()?.trim()
-        val index = input?.toInt()
-        println("""
-        ------------------------------------------------------------
-        |                  Animals                                  |
-        ____________________________________________________________
-        """.trimIndent())
-        if (index != null && index >= 0){ // checks if the index is !null && >= zero
-            println(getAnimal(index))
-        } else if (input?.lowercase() != "q" || input.lowercase() != "quit"){
-            println("Sorry, you need to provide an index for the animal you want to view from the zoo!")
-            continue
-        } else{
-            if (input.lowercase() == "quit") {
-                println("Quiting the zookeeper game!")
-                continue
-            } else {
-                if (input.lowercase() == "q") {
-                    break
-                    println("Game exited successfully!")
-                }
-            }
+        print("Enter the index of your favorite animal (or 'q' to quit): ")
+        val input = readLine()?.trim()
+
+        if (input.equals("q", ignoreCase = true) || input.equals("quit", ignoreCase = true)) {
+            println("Exiting the zookeeper game. Goodbye!")
+            break
+        }
+
+        val index = input?.toIntOrNull()
+        if (index != null && index >= 0) { // Valid index
+            println("""
+            ------------------------------------------------------------
+            ${getAnimal(index)}
+            ------------------------------------------------------------
+            """.trimIndent())
+        } else {
+            println("Invalid input. Please provide a valid index or type 'q' or 'quit' to quit.")
         }
     }
 }
